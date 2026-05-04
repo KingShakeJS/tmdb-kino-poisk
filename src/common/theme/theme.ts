@@ -6,5 +6,13 @@ export const getTheme = (themeMode: ThemeMode) => {
     palette: {
       mode: themeMode,
     },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          padding: 0,
+          margin: 0,
+        },
+      },
+    },
   })
 }

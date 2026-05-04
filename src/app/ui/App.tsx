@@ -1,7 +1,8 @@
-import { Button, Paper, ThemeProvider } from '@mui/material'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import { getTheme } from '@/common/theme/theme.ts'
 import { useAppDispatch, useAppSelector } from '@/common/hooks'
 import { changeThemeMode, selectThemeMode } from '@/app/model/app-slice.ts'
+import { Header } from '@/common/component'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -17,10 +18,8 @@ function App() {
   }
   return (
     <ThemeProvider theme={theme}>
-      <>
-        <Paper>Hello word</Paper>
-        <Button  onClick={changeThemeModeHandler}>Изменить тему</Button>
-      </>
+      <CssBaseline />
+      <Header changeTheme={changeThemeModeHandler} />
     </ThemeProvider>
   )
 }
