@@ -2,7 +2,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { getTheme } from '@/common/theme/theme.ts'
 import { useAppDispatch, useAppSelector } from '@/common/hooks'
 import { changeThemeMode, selectThemeMode } from '@/app/model/app-slice.ts'
-import { Header } from '@/common/component'
+import { Content, Footer, Header } from '@/common/component'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -16,10 +16,13 @@ function App() {
       dispatch(changeThemeMode({ themeMode: 'dark' }))
     }
   }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header changeTheme={changeThemeModeHandler} />
+      <Content />
+      <Footer />
     </ThemeProvider>
   )
 }
