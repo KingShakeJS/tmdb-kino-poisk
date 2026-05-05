@@ -1,5 +1,11 @@
-import { Routes } from 'react-router'
-//todo набрасать псевдо роуты
+import { Route, Routes } from 'react-router'
+import { Search } from '@/features/search/ui/Search.tsx'
+import { Main } from '@/features/main/ui/Main.tsx'
+import { FilteredMovies } from '@/features/filtered-movies/ui/FilteredMovies.tsx'
+import { Favorites } from '@/features/favorites/ui/Favorites.tsx'
+import { CategoryMovies } from '@/features/category-movies/ui/CategoryMovies.tsx'
+import { Page404 } from '@/common/component'
+
 export const Path = {
   Main: '/',
   Favorites: 'favorites',
@@ -10,5 +16,14 @@ export const Path = {
 }
 
 export const Routing = () => {
-  return <Routes></Routes>
+  return (
+    <Routes>
+      <Route path={Path.Main} element={<Main />} />
+      <Route path={Path.Favorites} element={<Favorites />} />
+      <Route path={Path.Search} element={<Search />} />
+      <Route path={Path.FilteredMovies} element={<FilteredMovies />} />
+      <Route path={Path.CategoryMovies} element={<CategoryMovies />} />
+      <Route path={Path.PageNonFound} element={<Page404 />} />
+    </Routes>
+  )
 }

@@ -9,27 +9,23 @@ type Props = {
   changeTheme: () => void
 }
 export const Header = ({ changeTheme }: Props) => {
-
-
   return (
+    <AppBar position="static">
+      <Toolbar
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Link component={RouterLink} to={Path.Main}>
+          <img src={logo} alt="Logo" style={{ height: 40, marginRight: 16 }} />
+        </Link>
 
-      <AppBar position="static">
-        <Toolbar
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Link component={RouterLink} to={Path.Main}>
-            <img src={logo} alt="Logo" style={{ height: 40, marginRight: 16 }} />
-          </Link>
+        <HeaderMenu />
 
-          <HeaderMenu />
-
-          <ThemeChanger changeTheme={changeTheme} />
-        </Toolbar>
-      </AppBar>
-
+        <ThemeChanger changeTheme={changeTheme} />
+      </Toolbar>
+    </AppBar>
   )
 }

@@ -1,8 +1,9 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { getTheme } from '@/common/theme/theme.ts'
 import { useAppDispatch, useAppSelector } from '@/common/hooks'
-import { changeThemeMode, selectThemeMode } from '@/app/model/app-slice.ts'
+import { change, selectThemeMode } from '@/app/model/app-slice.ts'
 import { Content, Footer, Header } from '@/common/component'
+import { useEffect } from 'react'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -11,11 +12,15 @@ function App() {
 
   const changeThemeModeHandler = () => {
     if (themeMode === 'dark') {
-      dispatch(changeThemeMode({ themeMode: 'light' }))
+      dispatch(change({ themeMode: 'light' }))
     } else if (themeMode === 'light') {
-      dispatch(changeThemeMode({ themeMode: 'dark' }))
+      dispatch(change({ themeMode: 'dark' }))
     }
   }
+  useEffect(() => {
+    const currentThemeMode = localStorage.getItem('themeMode')
+    if (currentThemeMode) dispatch(change({ themeMode: currentThemeMode }))
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
