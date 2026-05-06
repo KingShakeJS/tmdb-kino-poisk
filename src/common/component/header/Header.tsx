@@ -4,7 +4,7 @@ import logo from '../../../../public/logo.svg'
 import { HeaderMenu } from '@/common/component/header/headerMenu/HeaderMenu.tsx'
 import { Link as RouterLink } from 'react-router'
 import { Path } from '@/common/routing'
-
+//todo при возвращение на мэйн с помощью лого перемещать фокус в меню, через глобальный стейт
 type Props = {
   changeTheme: () => void
 }
