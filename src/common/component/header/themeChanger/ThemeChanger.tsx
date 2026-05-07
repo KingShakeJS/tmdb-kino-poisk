@@ -13,7 +13,10 @@ export const ThemeChanger = ({ changeTheme }: Props) => {
   }
 
   return (
-    <span style={{ cursor: 'pointer', fontSize: 32, transition: 'color 0.2s' }} onClick={changeThemeHandler}>
+    <span
+      style={{ cursor: 'pointer', fontSize: 32, transition: 'color 0.2s' }}
+      onClick={changeThemeHandler}
+    >
       {themeMode === 'dark' ? <Brightness7 /> : <Brightness2 />}
     </span>
   )

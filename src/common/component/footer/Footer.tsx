@@ -12,7 +12,8 @@ export const Footer = () => {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'center',
-          backgroundColor: theme.palette.mode === 'light' ? logoColors.Tertiary : logoColors.Primary,
+          backgroundColor:
+            theme.palette.mode === 'light' ? logoColors.Tertiary : logoColors.Primary,
         }}
       >
         какоето содержание моего футера)))
