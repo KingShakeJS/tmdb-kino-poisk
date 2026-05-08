@@ -13,6 +13,9 @@ export const Path = {
   FilteredMovies: 'filtered-movies',
   CategoryMovies: 'category-movies',
   PageNonFound: '*',
+
+  //////
+  Movies: '/movies',
 }
 
 export const Routing = () => {

@@ -27,7 +27,7 @@ function App() {
       <CssBaseline />
       <Header changeTheme={changeThemeModeHandler} />
       <Content />
-      <Footer />
+      {/*<Footer /> // todo решить проблему его местоположения*/}
     </ThemeProvider>
   )
 }
