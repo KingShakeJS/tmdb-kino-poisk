@@ -1,22 +1,26 @@
-import { Card, CardContent, Link, styled } from '@mui/material'
+import type { MouseEvent } from 'react'
+import { Button, CardContent, Link } from '@mui/material'
 import { BASE_IMG_URL } from '@/common/constants/const.ts'
 import type { movieInfo } from '@/features/main/api/mainApi.ts'
 import { Path } from '@/common/routing'
 import { Link as RouterLink } from 'react-router'
-//todo доделать дизайн карточки
-const StyledMovieCard = styled(Card)`
-  flex: 1;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import { StyledMovieCard } from '@/features/main/ui/moviesBlock/movieCard/StyledMovieCard.styled.ts'
+//todo любимые должны бвыть подсвеченны сразву
+
 type Props = {
   info: movieInfo | undefined
 }
 export const MovieCard = ({ info }: Props) => {
+  const changeFavoriteHandler = (e: MouseEvent<HTMLButtonElement>, id: number) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    console.log('click on favorite movie', id)
+    // todo Здесь разместите обработку "лайка"
+  }
   return (
-    <StyledMovieCard>
+    <StyledMovieCard rating={info!.vote_average}>
       <Link
         component={RouterLink}
         to={`${Path.Movies}/${info?.id}`}
@@ -35,12 +39,20 @@ export const MovieCard = ({ info }: Props) => {
           }}
         >
           <img
+            className="movie-img"
             style={{ maxWidth: '150px', borderRadius: '20px' }}
             src={`${BASE_IMG_URL}${info?.poster_path}`}
             alt="alt"
           />
           <h3 style={{ marginRight: 'auto' }}>{info?.title}</h3>
-          <p>{Math.round((info?.vote_average as number) * 10) / 10}</p>
+          <p className={'rating'}> {Math.round((info?.vote_average as number) * 10) / 10}</p>
+          <Button
+            onClick={(e) => {
+              changeFavoriteHandler(e, info!.id)
+            }}
+          >
+            <FavoriteIcon />
+          </Button>
         </CardContent>
       </Link>
     </StyledMovieCard>
