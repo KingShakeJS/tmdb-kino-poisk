@@ -4,11 +4,14 @@ import logo from '../../../../public/logo.svg'
 import { HeaderMenu } from '@/common/component/header/headerMenu/HeaderMenu.tsx'
 import { Link as RouterLink } from 'react-router'
 import { Path } from '@/common/routing'
-//todo при возвращение на мэйн с помощью лого перемещать фокус в меню, через глобальный стейт
+import { useAppDispatch } from '@/common/hooks'
+import { changeCurrentPage } from '@/app/model/app-slice.ts'
+
 type Props = {
   changeTheme: () => void
 }
 export const Header = ({ changeTheme }: Props) => {
+  const dispatch = useAppDispatch()
   return (
     <AppBar position="static">
       <Toolbar
@@ -19,7 +22,14 @@ export const Header = ({ changeTheme }: Props) => {
         }}
       >
         <Link component={RouterLink} to={Path.Main}>
-          <img src={logo} alt="Logo" style={{ height: 40, marginRight: 16 }} />
+          <img
+            onClick={() => {
+              dispatch(changeCurrentPage({ currentPage: 'Main' }))
+            }}
+            src={logo}
+            alt="Logo"
+            style={{ height: 40, marginRight: 16 }}
+          />
         </Link>
 
         <HeaderMenu />

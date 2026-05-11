@@ -1,44 +1,80 @@
 import type { ThemeMode } from '@/common/theme/theme.ts'
-
 import { createAppSlice } from '@/common/utils/createAppSlice.ts'
+import { isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 
+//todo оазобраться с этой дрочкой ошибок
+
+type statusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export const appSlice = createAppSlice({
   name: 'app',
-
   initialState: {
     themeMode: 'light' as ThemeMode,
-    status: 'idle' as string,
-    error: null as string | null,
-    isLoggedIn: false,
+    status: 'loading' as statusType,
+    currentPage: 'Main' as string,
   },
 
   selectors: {
     selectThemeMode: (state) => state.themeMode,
+    selectCurrentPage: (state) => state.currentPage,
+    selectStatus: (state) => state.status,
   },
 
-  reducers: (create) => ({
-    changeThemeMode: create.reducer<{ themeMode: ThemeMode }>((state, action) => {
-      state.themeMode = action.payload.themeMode
-    }),
-    change: create.asyncThunk<{ themeMode: ThemeMode }>(
-      ({ themeMode }, { rejectWithValue }) => {
-        try {
-          return { themeMode }
-        } catch (e) {
-          return rejectWithValue(null)
-        }
-      },
-      {
-        fulfilled: (state, action) => {
-          state.themeMode = action.payload.themeMode
-
-          localStorage.setItem('themeMode', action.payload.themeMode)
+  reducers: (create) => {
+    return {
+      changeThemeMode: create.asyncThunk(
+        ({ themeMode }, { rejectWithValue }) => {
+          try {
+            return { themeMode }
+          } catch (e) {
+            return rejectWithValue(null)
+          }
         },
-      },
-    ),
-  }),
-})
+        {
+          fulfilled: (state, action) => {
+            state.themeMode = action.payload.themeMode
 
-export const { selectThemeMode } = appSlice.selectors
-export const { changeThemeMode, change } = appSlice.actions
+            localStorage.setItem('themeMode', action.payload.themeMode)
+          },
+        },
+      ),
+
+      ///////
+
+      changeCurrentPage: create.asyncThunk(
+        ({ currentPage }, { rejectWithValue }) => {
+          try {
+            return { currentPage }
+          } catch (e) {
+            return rejectWithValue(null)
+          }
+        },
+        {
+          fulfilled: (state, action) => {
+            state.currentPage = action.payload.currentPage
+
+            localStorage.setItem('currentPage', action.payload.currentPage)
+          },
+        },
+      ),
+      /////
+    }
+  },
+
+  extraReducers: (builder) => {
+    //todo на экране не показывает лайнер прогрес но в тузу тулкиьта видно
+    builder
+      .addMatcher(isPending, (state) => {
+        state.status = 'loading'
+      })
+      .addMatcher(isFulfilled, (state) => {
+        state.status = 'succeeded'
+      })
+      .addMatcher(isRejected, (state) => {
+        state.status = 'failed'
+      })
+  },
+})
 export const appReducer = appSlice.reducer
+
+export const { selectThemeMode, selectCurrentPage, selectStatus } = appSlice.selectors
+export const { changeThemeMode, changeCurrentPage } = appSlice.actions

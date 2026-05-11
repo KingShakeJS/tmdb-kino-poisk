@@ -23,7 +23,7 @@ export const MovieCard = ({ info }: Props) => {
     <StyledMovieCard rating={info!.vote_average}>
       <Link
         component={RouterLink}
-        to={`${Path.Movies}/${info?.id}`}
+        to={`${Path.Movie.replace(':id', info?.id)}`}
         sx={{
           height: '100%',
           width: '100%',

@@ -1,11 +1,9 @@
 import { Button, styled } from '@mui/material'
 import type { getPopularRequestType } from '@/features/main/api/mainApi.ts'
-
 import { MovieCard } from '@/features/main/ui/moviesBlock/movieCard/MovieCard.tsx'
 import { Link } from 'react-router'
-
-//todo сделать скелетоны
-
+import { MovieCardSkeleton } from './movieCard/MovieCardSkeleton'
+//todo то что в StyledMoviesBlock вынести в отдельный компонент, делать запросы в нем
 const StyledMoviesBlock = styled('div')({
   display: 'flex',
   gap: '10px',
@@ -14,6 +12,7 @@ const StyledMoviesBlock = styled('div')({
 type Props = {
   title: string
   data: getPopularRequestType | undefined
+  isLoading: boolean
 }
 
 export const ViewMoreBtn = () => {
@@ -23,7 +22,7 @@ export const ViewMoreBtn = () => {
     </Link>
   )
 }
-export const MoviesBlock = ({ title, data }: Props) => {
+export const MoviesBlock = ({ title, data, isLoading }: Props) => {
   return (
     <div style={{ position: 'relative' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -31,9 +30,11 @@ export const MoviesBlock = ({ title, data }: Props) => {
         <ViewMoreBtn />
       </div>
       <StyledMoviesBlock>
-        {data?.results.slice(0, 6).map((info) => (
-          <MovieCard key={info.id} info={info} />
-        ))}
+        {isLoading
+          ? Array(6)
+              .fill(null)
+              .map((_, i) => <MovieCardSkeleton key={i} />)
+          : data?.results.slice(0, 6).map((info) => <MovieCard key={info.id} info={info} />)}
       </StyledMoviesBlock>
     </div>
   )

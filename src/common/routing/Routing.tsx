@@ -5,6 +5,7 @@ import { FilteredMovies } from '@/features/filtered-movies/ui/FilteredMovies.tsx
 import { Favorites } from '@/features/favorites/ui/Favorites.tsx'
 import { CategoryMovies } from '@/features/category-movies/ui/CategoryMovies.tsx'
 import { Page404 } from '@/common/component'
+import { FilmPage } from '@/features/film-page/ui/FilmPage.tsx'
 
 export const Path = {
   Main: '/',
@@ -16,6 +17,7 @@ export const Path = {
 
   //////
   Movies: '/movies',
+  Movie: `/movie/:id`,
 }
 
 export const Routing = () => {
@@ -26,6 +28,9 @@ export const Routing = () => {
       <Route path={Path.Search} element={<Search />} />
       <Route path={Path.FilteredMovies} element={<FilteredMovies />} />
       <Route path={Path.CategoryMovies} element={<CategoryMovies />} />
+
+      <Route path={Path.Movie} element={<FilmPage />} />
+
       <Route path={Path.PageNonFound} element={<Page404 />} />
     </Routes>
   )
