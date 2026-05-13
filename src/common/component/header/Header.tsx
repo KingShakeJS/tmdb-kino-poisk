@@ -1,6 +1,6 @@
 import { AppBar, Link, Toolbar } from '@mui/material'
 import { ThemeChanger } from '@/common/component/header/themeChanger/ThemeChanger.tsx'
-import logo from '../../../../public/logo.svg'
+import logo from '/logo.svg?url'
 import { HeaderMenu } from '@/common/component/header/headerMenu/HeaderMenu.tsx'
 import { Link as RouterLink } from 'react-router'
 import { Path } from '@/common/routing'

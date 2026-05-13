@@ -1,9 +1,6 @@
 import { Card, styled } from '@mui/material'
 
-type StyledMovieCardProps = {
-  rating: number
-}
-export const StyledMovieCard = styled(Card)<StyledMovieCardProps>`
+export const StyledMovieCard = styled(Card)`
   flex: 1;
   border-radius: 20px;
   display: flex;
@@ -11,35 +8,14 @@ export const StyledMovieCard = styled(Card)<StyledMovieCardProps>`
   align-items: center;
   position: relative;
   background: ${({ theme }) => theme.palette.background.paper};
-
   & .rating {
     position: absolute;
-    background-color: ${({ theme, rating }) =>
-      rating > 7
-        ? theme.palette.success.main
-        : rating < 5
-          ? theme.palette.error.main
-          : theme.palette.warning.main};
-    border-radius: 50%;
-    padding: 20px;
     bottom: 0;
     right: 20px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    max-width: 50px;
-    max-height: 50px;
-    color: ${({ theme }) => theme.palette.common.white};
-    font-weight: bold;
-    font-size: 18px;
   }
-
   .movie-img {
     transition: transform 0.3s;
   }
-
   &:hover .movie-img {
     transform: scale(1.1);
   }
@@ -64,12 +40,14 @@ export const StyledMovieCard = styled(Card)<StyledMovieCardProps>`
   }
 
   /* --- Стили для иконки --- */
+
   .MuiButton-root {
     .MuiSvgIcon-root {
       font-size: 2rem;
       transition: color 0.3s;
       color: ${({ theme }) => theme.palette.common.black};
     }
+
     &:hover .MuiSvgIcon-root {
       color: ${({ theme }) => theme.palette.error.main};
     }

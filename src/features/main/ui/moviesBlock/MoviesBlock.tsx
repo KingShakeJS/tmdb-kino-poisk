@@ -1,9 +1,14 @@
 import { Button, styled } from '@mui/material'
 import type { getPopularRequestType } from '@/features/main/api/mainApi.ts'
-import { MovieCard } from '@/features/main/ui/moviesBlock/movieCard/MovieCard.tsx'
+
 import { Link } from 'react-router'
-import { MovieCardSkeleton } from './movieCard/MovieCardSkeleton'
-//todo то что в StyledMoviesBlock вынести в отдельный компонент, делать запросы в нем
+import { MovieCardSkeleton } from '@/common/component/movieCard/MovieCardSkeleton.tsx'
+import { MovieCard } from '@/common/component/movieCard/MovieCard.tsx'
+import { Path } from '@/common/routing'
+import { useAppDispatch } from '@/common/hooks'
+import { changeCurrentPage } from '@/app/model/app-slice.ts'
+
+//todo то что в StyledMoviesBlock вынести в отдельный компонент, делать запросы в нем????
 const StyledMoviesBlock = styled('div')({
   display: 'flex',
   gap: '10px',
@@ -16,9 +21,15 @@ type Props = {
 }
 
 export const ViewMoreBtn = () => {
+  const dispatch = useAppDispatch()
+  const goToCategories = () => {
+    dispatch(changeCurrentPage({ currentPage: 'CategoryMovies' }))
+  }
   return (
-    <Link to={'/1'}>
-      <Button variant="outlined">View more</Button>
+    <Link to={Path.CategoryMovies}>
+      <Button variant="outlined" onClick={goToCategories}>
+        View more
+      </Button>
     </Link>
   )
 }

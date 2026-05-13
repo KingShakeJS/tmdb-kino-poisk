@@ -14,7 +14,7 @@ export const Main = () => {
   const { data: TopRatedData, isLoading: TopRatedIsLoading } = useGetTopRatedQuery()
   const { data: UpcomingData, isLoading: UpcomingIsLoading } = useGetUpcomingQuery()
   const { data: NowPlayingData, isLoading: NowPlayingIsLoading } = useGetNowPlayingQuery()
-
+  // todo <ViewMoreBtn /> во всех MoviesBlock должна перекидывать на страницу категории и сразу должна быть выьранна нужная категория
   return (
     <div className={'Main'} style={{ width: '100%', minHeight: '100%' }}>
       <SearchSection isLoading={PopularIsLoading} data={PopularData} />

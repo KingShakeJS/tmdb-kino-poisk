@@ -5,7 +5,9 @@ import type { movieInfo } from '@/features/main/api/mainApi.ts'
 import { Path } from '@/common/routing'
 import { Link as RouterLink } from 'react-router'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { StyledMovieCard } from '@/features/main/ui/moviesBlock/movieCard/StyledMovieCard.styled.ts'
+import Zaglusha from '/forFilmCard.png'
+import { Rating } from '@/common/component'
+import { StyledMovieCard } from '@/common/component/movieCard/StyledMovieCard.styled.ts'
 //todo любимые должны бвыть подсвеченны сразву
 
 type Props = {
@@ -19,11 +21,14 @@ export const MovieCard = ({ info }: Props) => {
     console.log('click on favorite movie', id)
     // todo Здесь разместите обработку "лайка"
   }
+
+  const src = info?.poster_path ? `${BASE_IMG_URL}${info?.poster_path}` : Zaglusha
+
   return (
-    <StyledMovieCard rating={info!.vote_average}>
+    <StyledMovieCard>
       <Link
         component={RouterLink}
-        to={`${Path.Movie.replace(':id', info?.id)}`}
+        to={`${Path.Movie.replace(':id', String(info!.id))}`}
         sx={{
           height: '100%',
           width: '100%',
@@ -41,11 +46,11 @@ export const MovieCard = ({ info }: Props) => {
           <img
             className="movie-img"
             style={{ maxWidth: '150px', borderRadius: '20px' }}
-            src={`${BASE_IMG_URL}${info?.poster_path}`}
+            src={src}
             alt="alt"
           />
           <h3 style={{ marginRight: 'auto' }}>{info?.title}</h3>
-          <p className={'rating'}> {Math.round((info?.vote_average as number) * 10) / 10}</p>
+          <Rating count={info!.vote_average as number} />
           <Button
             onClick={(e) => {
               changeFavoriteHandler(e, info!.id)

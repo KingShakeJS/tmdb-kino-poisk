@@ -1,3 +1,5 @@
+export { BigLoader } from '@/common/component/big-loader/BigLoader.tsx'
+export { Rating } from '@/common/component/rating/Rating.tsx'
 export { MySearch } from '@/common/component/mySearch/MySearch.tsx'
 export { Page404 } from '@/common/component/page404/Page404.tsx'
 export { Content } from '@/common/component/content/Content.tsx'

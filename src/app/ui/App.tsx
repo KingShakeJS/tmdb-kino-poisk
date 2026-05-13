@@ -5,7 +5,6 @@ import { changeThemeMode, selectThemeMode, selectStatus } from '@/app/model/app-
 import { Content, Header } from '@/common/component'
 import { useEffect } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
-import { MovieCardSkeleton } from '@/features/main/ui/moviesBlock/movieCard/MovieCardSkeleton.tsx'
 function App() {
   const dispatch = useAppDispatch()
   const themeMode = useAppSelector(selectThemeMode)

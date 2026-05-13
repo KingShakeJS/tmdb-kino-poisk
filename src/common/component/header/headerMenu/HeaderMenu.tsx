@@ -35,20 +35,20 @@ export const HeaderMenu = () => {
       }}
     >
       <Tab value="Main" label="main" component={RouterLink} to={Path.Main} />
-      <Tab value="Favorites" label="Favorites" component={RouterLink} to={Path.Favorites} />
-      <Tab value="Search" label="Search" component={RouterLink} to={Path.Search} />
-      <Tab
-        value="FilteredMovies"
-        label="Filtered Movies"
-        component={RouterLink}
-        to={Path.FilteredMovies}
-      />
       <Tab
         value="CategoryMovies"
         label="Category Movies"
         component={RouterLink}
         to={Path.CategoryMovies}
       />
+      <Tab
+        value="FilteredMovies"
+        label="Filtered Movies"
+        component={RouterLink}
+        to={Path.FilteredMovies}
+      />
+      <Tab value="Search" label="Search" component={RouterLink} to={Path.Search} />
+      <Tab value="Favorites" label="Favorites" component={RouterLink} to={Path.Favorites} />
     </Tabs>
   )
 }
