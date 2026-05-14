@@ -1,14 +1,15 @@
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import { Link as RouterLink } from 'react-router'
+import { Link as RouterLink, useNavigate } from 'react-router'
 import { Path } from '@/common/routing'
 import { type SyntheticEvent, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/common/hooks'
 import { changeCurrentPage, selectCurrentPage } from '@/app/model/app-slice.ts'
-
+//todo  избавиться от табов
 export const HeaderMenu = () => {
   const CurrentPage = useAppSelector(selectCurrentPage)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const handleChange = (_event: SyntheticEvent, currentPage: string) => {
     dispatch(changeCurrentPage({ currentPage }))
@@ -19,6 +20,23 @@ export const HeaderMenu = () => {
 
     if (currentPage) {
       dispatch(changeCurrentPage({ currentPage }))
+      switch (currentPage) {
+        case 'CategoryMovies':
+          navigate(Path.CategoryMovies)
+          break
+        case 'FilteredMovies':
+          navigate(Path.FilteredMovies)
+          break
+        case 'Search':
+          navigate(Path.Search)
+          break
+        case 'Favorites':
+          navigate(Path.Favorites)
+          break
+        default:
+          navigate(Path.Main)
+          break
+      }
     }
   }, [dispatch])
 

@@ -13,6 +13,12 @@ export const Path = {
   Search: 'search',
   FilteredMovies: 'filtered-movies',
   CategoryMovies: 'category-movies',
+
+  PopularMovies: 'popular-movies',
+  TopRatedMovies: 'top-rated-movies',
+  UpcomingMovies: 'upcoming-movies',
+  NawPlayingMovies: 'naw-playing-movies',
+
   PageNonFound: '*',
 
   //////
@@ -27,10 +33,10 @@ export const Routing = () => {
       <Route path={Path.Favorites} element={<Favorites />} />
       <Route path={Path.Search} element={<Search />} />
       <Route path={Path.FilteredMovies} element={<FilteredMovies />} />
-      <Route path={Path.CategoryMovies} element={<CategoryMovies />} />
+
+      <Route path={`${Path.CategoryMovies}/*`} element={<CategoryMovies />} />
 
       <Route path={Path.Movie} element={<FilmPage />} />
-
       <Route path={Path.PageNonFound} element={<Page404 />} />
     </Routes>
   )
