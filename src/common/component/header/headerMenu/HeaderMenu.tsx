@@ -57,7 +57,7 @@ export const HeaderMenu = () => {
         value="CategoryMovies"
         label="Category Movies"
         component={RouterLink}
-        to={Path.CategoryMovies}
+        to={`${Path.CategoryMovies}/${Path.PopularMovies}`}
       />
       <Tab
         value="FilteredMovies"

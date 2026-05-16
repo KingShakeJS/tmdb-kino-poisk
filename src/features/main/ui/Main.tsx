@@ -8,6 +8,7 @@ import {
   useGetTopRatedQuery,
   useGetUpcomingQuery,
 } from '@/features/main/api/mainApi.ts'
+import { Path } from '@/common/routing'
 
 export const Main = () => {
   const { data: PopularData, isLoading: PopularIsLoading } = useGetPopularQuery()
@@ -19,13 +20,29 @@ export const Main = () => {
     <div className={'Main'} style={{ width: '100%', minHeight: '100%' }}>
       <SearchSection isLoading={PopularIsLoading} data={PopularData} />
       <div style={{ marginTop: '20px', padding: '40px' }}>
-        <MoviesBlock title={'Popular Movies'} data={PopularData} isLoading={PopularIsLoading} />
-        <MoviesBlock title={'Top Rated'} data={TopRatedData} isLoading={TopRatedIsLoading} />
-        <MoviesBlock title={'Upcoming'} data={UpcomingData} isLoading={UpcomingIsLoading} />
+        <MoviesBlock
+          title={'Popular Movies'}
+          data={PopularData}
+          isLoading={PopularIsLoading}
+          category={Path.PopularMovies}
+        />
+        <MoviesBlock
+          title={'Top Rated'}
+          data={TopRatedData}
+          isLoading={TopRatedIsLoading}
+          category={Path.TopRatedMovies}
+        />
+        <MoviesBlock
+          title={'Upcoming'}
+          data={UpcomingData}
+          isLoading={UpcomingIsLoading}
+          category={Path.UpcomingMovies}
+        />
         <MoviesBlock
           title={'Now Playing Movies'}
           data={NowPlayingData}
           isLoading={NowPlayingIsLoading}
+          category={Path.NawPlayingMovies}
         />
       </div>
     </div>

@@ -18,27 +18,28 @@ type Props = {
   title: string
   data: getPopularRequestType | undefined
   isLoading: boolean
+  category: string
 }
 
-export const ViewMoreBtn = () => {
+export const ViewMoreBtn = ({ category }: { category: string }) => {
   const dispatch = useAppDispatch()
   const goToCategories = () => {
     dispatch(changeCurrentPage({ currentPage: 'CategoryMovies' }))
   }
   return (
-    <Link to={Path.CategoryMovies}>
+    <Link to={`${Path.CategoryMovies}/${category}`}>
       <Button variant="outlined" onClick={goToCategories}>
         View more
       </Button>
     </Link>
   )
 }
-export const MoviesBlock = ({ title, data, isLoading }: Props) => {
+export const MoviesBlock = ({ title, data, isLoading, category }: Props) => {
   return (
     <div style={{ position: 'relative' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2>{title}</h2>
-        <ViewMoreBtn />
+        <ViewMoreBtn category={category} />
       </div>
       <StyledMoviesBlock>
         {isLoading

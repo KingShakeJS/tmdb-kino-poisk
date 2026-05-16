@@ -10,6 +10,8 @@ import {
 import { Content, Header } from '@/common/component'
 import { useEffect } from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
+
+//todo сохранять url в localstorage???
 function App() {
   const dispatch = useAppDispatch()
   const themeMode = useAppSelector(selectThemeMode)

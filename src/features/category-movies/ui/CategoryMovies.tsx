@@ -3,10 +3,10 @@
 import { Link, styled } from '@mui/material'
 import { NavLink as RouterLink, Route, Routes } from 'react-router'
 import { Path } from '@/common/routing'
-import { PopularMovies } from '@/features/category-movies/ui/popular-movies/PopularMovies.tsx'
-import { TopRatedMovies } from '@/features/category-movies/ui/top-rated-movies/TopRatedMovies.tsx'
-import { UpcomingMovies } from '@/features/category-movies/ui/upcoming-movies/UpcomingMovies.tsx'
-import { NawPlayingMovies } from '@/features/category-movies/ui/naw-playing-movies/NawPlayingMovies.tsx'
+import { PopularMovies } from '@/features/category-movies/ui/category-pages/popular-movies/PopularMovies.tsx'
+import { TopRatedMovies } from '@/features/category-movies/ui/category-pages/top-rated-movies/TopRatedMovies.tsx'
+import { UpcomingMovies } from '@/features/category-movies/ui/category-pages/upcoming-movies/UpcomingMovies.tsx'
+import { NawPlayingMovies } from '@/features/category-movies/ui/category-pages/naw-playing-movies/NawPlayingMovies.tsx'
 
 export const StyledLinksBlock = styled('div')(({ theme }) => ({
   width: '50%',

@@ -43,21 +43,24 @@ export const MovieCard = ({ info }: Props) => {
             alignItems: 'center',
           }}
         >
-          <img
-            className="movie-img"
-            style={{ maxWidth: '150px', borderRadius: '20px' }}
-            src={src}
-            alt="alt"
-          />
+          <div className={'img-btn-rating'}>
+            <Button
+              onClick={(e) => {
+                changeFavoriteHandler(e, info!.id)
+              }}
+            >
+              <FavoriteIcon />
+            </Button>
+            <img
+              className="movie-img"
+              style={{ maxWidth: '150px', borderRadius: '20px' }}
+              src={src}
+              alt="alt"
+            />
+            <Rating count={info!.vote_average as number} />
+          </div>
+
           <h3 style={{ marginRight: 'auto' }}>{info?.title}</h3>
-          <Rating count={info!.vote_average as number} />
-          <Button
-            onClick={(e) => {
-              changeFavoriteHandler(e, info!.id)
-            }}
-          >
-            <FavoriteIcon />
-          </Button>
         </CardContent>
       </Link>
     </StyledMovieCard>
