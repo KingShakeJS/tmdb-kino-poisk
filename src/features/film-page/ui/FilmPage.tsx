@@ -8,6 +8,7 @@ import { AboutFilm } from '@/features/film-page/ui/about-film/AboutFilm.tsx'
 import { BigLoader } from '@/common/component'
 import { Actors } from '@/features/film-page/ui/actors/Actors.tsx'
 import { SimilarMovies } from '@/features/film-page/ui/similary-movies/SimilarMovies.tsx'
+import { StyledContainer } from '@/common/component/container/StyledContainer.ts'
 
 export const FilmPage = () => {
   const { id } = useParams()
@@ -19,10 +20,10 @@ export const FilmPage = () => {
     return <BigLoader />
   }
   return (
-    <div style={{ padding: '20px 40px 10px' }}>
+    <StyledContainer>
       <AboutFilm data={detailData} />
       <Actors data={creditsData} />
       <SimilarMovies data={similarData} />
-    </div>
+    </StyledContainer>
   )
 }

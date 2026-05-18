@@ -5,9 +5,9 @@ import { useState } from 'react'
 
 type Props = {
   data: any
-  title: string
+  title?: string
 }
-export const CategoryContent = ({ data, title }: Props) => {
+export const AllMoviesBlock = ({ data, title }: Props) => {
   const pageCount = data?.total_pages
   const [page, setPage] = useState(1)
   const handlePageChange = (_even: any, value: number) => {
@@ -18,7 +18,6 @@ export const CategoryContent = ({ data, title }: Props) => {
   return (
     <div
       style={{
-        padding: '40px',
         width: '100%',
       }}
     >

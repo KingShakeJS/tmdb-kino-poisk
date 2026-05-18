@@ -7,6 +7,7 @@ import { PopularMovies } from '@/features/category-movies/ui/category-pages/popu
 import { TopRatedMovies } from '@/features/category-movies/ui/category-pages/top-rated-movies/TopRatedMovies.tsx'
 import { UpcomingMovies } from '@/features/category-movies/ui/category-pages/upcoming-movies/UpcomingMovies.tsx'
 import { NawPlayingMovies } from '@/features/category-movies/ui/category-pages/naw-playing-movies/NawPlayingMovies.tsx'
+import { StyledContainer } from '@/common/component/container/StyledContainer.ts'
 
 export const StyledLinksBlock = styled('div')(({ theme }) => ({
   width: '50%',
@@ -37,7 +38,7 @@ export const StyledLinksBlock = styled('div')(({ theme }) => ({
 
 export const CategoryMovies = () => {
   return (
-    <div style={{ width: '100%' }}>
+    <StyledContainer style={{ width: '100%' }}>
       <StyledLinksBlock className={'LinksBlock'}>
         <Link
           component={RouterLink}
@@ -78,6 +79,6 @@ export const CategoryMovies = () => {
           <Route path={Path.NawPlayingMovies} element={<NawPlayingMovies />} />
         </Routes>
       </div>
-    </div>
+    </StyledContainer>
   )
 }
