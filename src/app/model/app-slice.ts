@@ -11,16 +11,21 @@ export const appSlice = createAppSlice({
     themeMode: 'light' as ThemeMode,
     status: 'loading' as statusType,
     currentPage: 'Main' as string,
+    error: null as any,
   },
 
   selectors: {
     selectThemeMode: (state) => state.themeMode,
     selectCurrentPage: (state) => state.currentPage,
     selectStatus: (state) => state.status,
+    selectError: (state) => state.error,
   },
 
   reducers: (create) => {
     return {
+      setAppError: create.reducer<{ error: string | null }>((state, action) => {
+        state.error = action.payload.error
+      }),
       changeThemeMode: create.asyncThunk(
         ({ themeMode }, { rejectWithValue }) => {
           try {
@@ -76,5 +81,5 @@ export const appSlice = createAppSlice({
 })
 export const appReducer = appSlice.reducer
 
-export const { selectThemeMode, selectCurrentPage, selectStatus } = appSlice.selectors
-export const { changeThemeMode, changeCurrentPage } = appSlice.actions
+export const { selectThemeMode, selectCurrentPage, selectStatus,selectError } = appSlice.selectors
+export const { changeThemeMode, changeCurrentPage,setAppError } = appSlice.actions
