@@ -22,7 +22,6 @@ function App() {
   const loadingStatus = useAppSelector(selectStatus)
   const error = useAppSelector(selectError)
 
-
   const theme = getTheme(themeMode)
 
   const changeThemeModeHandler = () => {

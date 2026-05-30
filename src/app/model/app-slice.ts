@@ -81,5 +81,5 @@ export const appSlice = createAppSlice({
 })
 export const appReducer = appSlice.reducer
 
-export const { selectThemeMode, selectCurrentPage, selectStatus,selectError } = appSlice.selectors
-export const { changeThemeMode, changeCurrentPage,setAppError } = appSlice.actions
+export const { selectThemeMode, selectCurrentPage, selectStatus, selectError } = appSlice.selectors
+export const { changeThemeMode, changeCurrentPage, setAppError } = appSlice.actions

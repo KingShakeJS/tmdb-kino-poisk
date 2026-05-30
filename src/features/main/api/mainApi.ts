@@ -1,27 +1,40 @@
 import { baseApi } from '@/app/api/baseApi.ts'
 import { zodValidate } from '@/common/utils/zodValidate.ts'
-import { type getPopularResponsetType } from '@/features/main/model/types/types.ts'
-import { getPopularResponseSchema } from '@/features/main/model/schemas/schemas.ts'
-//todo zod
-//todo getUpcoming getNowPlaying getTopRated додулать типизацию и валидацию
+import {
+  type getBaseResponseType,
+  type getResponseWithDateType,
+} from '@/features/main/model/types/types.ts'
+import {
+  getBaseResponseSchema,
+  getResponseWithDateSchema,
+} from '@/features/main/model/schemas/schemas.ts'
 
 const mainApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getPopular: build.query<getPopularResponsetType, void>({
+    getPopular: build.query<getBaseResponseType, void>({
       query: () => `movie/popular`,
       onQueryStarted(_, { dispatch, queryFulfilled }) {
-        zodValidate(dispatch, queryFulfilled, getPopularResponseSchema)
+        zodValidate(dispatch, queryFulfilled, getBaseResponseSchema)
       },
     }),
 
-    getTopRated: build.query<getPopularRequestType, void>({
+    getTopRated: build.query<getBaseResponseType, void>({
       query: () => `movie/top_rated`,
+      onQueryStarted(_, { dispatch, queryFulfilled }) {
+        zodValidate(dispatch, queryFulfilled, getBaseResponseSchema)
+      },
     }),
-    getUpcoming: build.query<getPopularRequestType, void>({
+    getUpcoming: build.query<getResponseWithDateType, void>({
       query: () => `movie/upcoming`,
+      onQueryStarted(_, { dispatch, queryFulfilled }) {
+        zodValidate(dispatch, queryFulfilled, getResponseWithDateSchema)
+      },
     }),
-    getNowPlaying: build.query<getPopularRequestType, void>({
+    getNowPlaying: build.query<getResponseWithDateType, void>({
       query: () => `movie/now_playing`,
+      onQueryStarted(_, { dispatch, queryFulfilled }) {
+        zodValidate(dispatch, queryFulfilled, getResponseWithDateSchema)
+      },
     }),
   }),
 })

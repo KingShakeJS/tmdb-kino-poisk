@@ -41,8 +41,6 @@ export const handleError = (
   if (result.error) {
     const data = result.error.data
     if (data instanceof ZodError || (data && Array.isArray((data as any).issues))) {
-
-
       error = formatZodError(data)
       api.dispatch(setAppError({ error }))
       return

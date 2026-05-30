@@ -1,4 +1,3 @@
-
 import type { Dispatch } from '@reduxjs/toolkit'
 import { setAppError } from '@/app/model/app-slice.ts'
 

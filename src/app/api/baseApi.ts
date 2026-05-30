@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import {handleError} from '@/common/utils/handleError.ts'
+import { handleError } from '@/common/utils/handleError.ts'
 
 export const baseApi = createApi({
   reducerPath: 'kinoPoiskApi',
@@ -18,4 +18,3 @@ export const baseApi = createApi({
   },
   endpoints: () => ({}),
 })
-
