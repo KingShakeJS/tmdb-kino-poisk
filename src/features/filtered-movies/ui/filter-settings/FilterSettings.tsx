@@ -9,11 +9,12 @@ import {
 } from '@mui/material'
 
 import { StyledFilterSettings } from '@/features/filtered-movies/ui/filter-settings/StyledFilterSettings.ts'
+import { useGetGenresMovieListQuery } from '@/features/filtered-movies/api/filteredMoviesApi.ts'
 
 export type paramsType = {
-  sortBy: string
+  sort_by: string
   rating: number[]
-  checkedGenres: string[]
+  checkedGenres: number[]
 }
 
 type Props = {
@@ -22,94 +23,18 @@ type Props = {
 }
 
 export const FilterSettings = ({ params, changeParams }: Props) => {
-  const sortValues: string[] = [
-    'Popularity ↑',
-    'Popularity ↓',
-    'Rating ↑',
-    'Rating ↓',
-    'Release Date ↑',
-    'Title A-Z',
-    'Title Z-A',
-  ]
-  //todo получить их запрсом
-  const genresValues = [
-    {
-      id: 28,
-      name: 'Action',
-    },
-    {
-      id: 12,
-      name: 'Abenteuer',
-    },
-    {
-      id: 16,
-      name: 'Animation',
-    },
-    {
-      id: 35,
-      name: 'Komödie',
-    },
-    {
-      id: 80,
-      name: 'Krimi',
-    },
-    {
-      id: 99,
-      name: 'Dokumentarfilm',
-    },
-    {
-      id: 18,
-      name: 'Drama',
-    },
-    {
-      id: 10751,
-      name: 'Familie',
-    },
-    {
-      id: 14,
-      name: 'Fantasy',
-    },
-    {
-      id: 36,
-      name: 'Historie',
-    },
-    {
-      id: 27,
-      name: 'Horror',
-    },
-    {
-      id: 10402,
-      name: 'Musik',
-    },
-    {
-      id: 9648,
-      name: 'Mystery',
-    },
-    {
-      id: 10749,
-      name: 'Liebesfilm',
-    },
-    {
-      id: 878,
-      name: 'Science Fiction',
-    },
-    {
-      id: 10770,
-      name: 'TV-Film',
-    },
-    {
-      id: 53,
-      name: 'Thriller',
-    },
-    {
-      id: 10752,
-      name: 'Kriegsfilm',
-    },
-    {
-      id: 37,
-      name: 'Western',
-    },
-  ]
+  const { data } = useGetGenresMovieListQuery()
+
+  const sortBy = {
+    'popularity.asc': 'Popularity ↑',
+    'popularity.desc': 'Popularity ↓',
+    'vote_average.asc': 'Rating ↑',
+    'vote_average.desc': 'Rating ↓',
+    'primary_release_date.asc': 'Release Date ↑',
+    'primary_release_date.desc': 'Release Date ↓',
+    'title.asc': 'Title A-Z',
+    'title.desc': 'Title Z-A',
+  } as const
 
   const changeCheckedGenresHandler = (genre: string) => {
     const copyCheckedGenres = [...params.checkedGenres]
@@ -129,7 +54,7 @@ export const FilterSettings = ({ params, changeParams }: Props) => {
   }
 
   const changeSelectHandler = (event: SelectChangeEvent) => {
-    changeParams({ ...params, sortBy: event.target.value })
+    changeParams({ ...params, sort_by: event.target.value })
   }
 
   const changeRatingHandler = (_event: Event, newValue: number[]) => {
@@ -141,7 +66,7 @@ export const FilterSettings = ({ params, changeParams }: Props) => {
 
   const resetFiltersHandler = () => {
     changeParams({
-      sortBy: 'Popularity ↓',
+      sort_by: 'popularity.asc',
       rating: [0, 10],
       checkedGenres: [],
     })
@@ -158,13 +83,13 @@ export const FilterSettings = ({ params, changeParams }: Props) => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={params.sortBy}
+              value={params.sort_by}
               onChange={changeSelectHandler}
               sx={{ width: 200 }}
             >
-              {sortValues.map((item, index) => (
+              {Object.keys(sortBy).map((item, index) => (
                 <MenuItem key={index} value={item}>
-                  {item}
+                  {sortBy[item]}
                 </MenuItem>
               ))}
             </Select>
@@ -188,11 +113,11 @@ export const FilterSettings = ({ params, changeParams }: Props) => {
             />
           </div>
           <div className="genres">
-            {genresValues.map((item: any) => (
+            {data?.genres.map((item: any) => (
               <Button
                 key={item.id}
-                variant={params.checkedGenres.includes(item.name) ? 'contained' : 'outlined'}
-                onClick={() => changeCheckedGenresHandler(item.name)}
+                variant={params.checkedGenres.includes(item.id) ? 'contained' : 'outlined'}
+                onClick={() => changeCheckedGenresHandler(item.id)}
               >
                 {item.name}
               </Button>
