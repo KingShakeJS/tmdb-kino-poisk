@@ -1,13 +1,9 @@
 import { baseApi } from '@/app/api/baseApi.ts'
 import { zodValidate } from '@/common/utils/zodValidate.ts'
-import {
-  type getBaseResponseType,
-  type getResponseWithDateType,
-} from '@/features/main/model/types/types.ts'
-import {
-  getBaseResponseSchema,
-  getResponseWithDateSchema,
-} from '@/features/main/model/schemas/schemas.ts'
+import { type getResponseWithDateType } from '@/features/main/model/types/types.ts'
+import { getResponseWithDateSchema } from '@/features/main/model/schemas/schemas.ts'
+import { getBaseResponseSchema } from '@/common/schemas/schemas.ts'
+import { type getBaseResponseType } from '@/common/types/types.ts'
 
 const mainApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

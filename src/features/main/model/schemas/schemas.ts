@@ -1,12 +1,5 @@
 import { z } from 'zod'
-import { movieInfoSchema } from '@/common/schemas/schemas.ts'
-
-export const getBaseResponseSchema = z.strictObject({
-  page: z.number().int().nonnegative(),
-  results: z.array(movieInfoSchema),
-  total_pages: z.number().int().nonnegative(),
-  total_results: z.number().int().nonnegative(),
-})
+import { getBaseResponseSchema } from '@/common/schemas/schemas.ts'
 
 export const getResponseWithDateSchema = getBaseResponseSchema.safeExtend({
   dates: z
