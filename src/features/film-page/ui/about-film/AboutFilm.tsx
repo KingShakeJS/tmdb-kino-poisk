@@ -3,11 +3,10 @@ import { BASE_IMG_URL } from '@/common/constants/const.ts'
 import { Button, styled } from '@mui/material'
 import Zaglusha from '/forFilmCard.png'
 import { useNavigate } from 'react-router'
-
-//todo data: any
+import type { movieDetailsType } from '@/features/film-page/model/types/types.ts'
 
 type Props = {
-  data: any | undefined
+  data: movieDetailsType | undefined
 }
 
 const StyledAboutFilm = styled('div')`

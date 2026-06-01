@@ -8,7 +8,7 @@ import { Path } from '@/common/routing'
 import { useAppDispatch } from '@/common/hooks'
 import { changeCurrentPage } from '@/app/model/app-slice.ts'
 
-//todo то что в StyledMoviesBlock вынести в отдельный компонент, делать запросы в нем????
+//todo??? то что в StyledMoviesBlock вынести в отдельный компонент, делать запросы в нем
 const StyledMoviesBlock = styled('div')({
   display: 'flex',
   gap: '10px',

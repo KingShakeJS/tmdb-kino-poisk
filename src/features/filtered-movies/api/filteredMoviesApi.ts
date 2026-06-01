@@ -1,7 +1,13 @@
 import { baseApi } from '@/app/api/baseApi.ts'
-import { getGenresMovieListType } from '@/features/filtered-movies/model/types/types.ts'
+
 import { zodValidate } from '@/common/utils/zodValidate.ts'
 import { getGenresMovieListSchema } from '@/features/filtered-movies/model/schemas/schemas.ts'
+import type { getBaseResponseType } from '@/common/types/types.ts'
+import { getBaseResponseSchema } from '@/common/schemas/schemas.ts'
+import type {
+  getDiscoverMovieParamsType,
+  getGenresMovieListType,
+} from '@/features/filtered-movies/model/types/types.ts'
 
 const filteredMoviesApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -11,12 +17,15 @@ const filteredMoviesApi = baseApi.injectEndpoints({
         zodValidate(dispatch, queryFulfilled, getGenresMovieListSchema)
       },
     }),
-    //todo zod  type
-    getDiscoverMovie: build.query<any, any>({
+
+    getDiscoverMovie: build.query<getBaseResponseType, getDiscoverMovieParamsType>({
       query: (params) => ({
         url: `discover/movie`,
         params,
       }),
+      onQueryStarted(_, { dispatch, queryFulfilled }) {
+        zodValidate(dispatch, queryFulfilled, getBaseResponseSchema)
+      },
     }),
   }),
 })

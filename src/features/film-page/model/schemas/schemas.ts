@@ -39,7 +39,7 @@ export const getDetailsSchema = movieInfoSchema.safeExtend({
   vote_average: z.number(),
   vote_count: z.number(),
   revenue: z.number(),
-  //todo z.object({})
+  //todo??? z.object({})
   spoken_languages: z.array(z.object({})),
 })
 

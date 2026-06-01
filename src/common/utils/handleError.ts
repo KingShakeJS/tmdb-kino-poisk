@@ -70,7 +70,7 @@ export const handleError = (
         }
         break
       default:
-        // @ts-ignore todo
+        // @ts-ignore todo???
         if (
           typeof result.error.status === 'number' &&
           result.error.status >= 500 &&

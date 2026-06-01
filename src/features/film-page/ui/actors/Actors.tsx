@@ -1,9 +1,8 @@
-//todo data: any
-
 import { ActorCard } from '@/features/film-page/ui/actors/actor-card/ActorCard.tsx'
+import type { getCreditsType } from '@/features/film-page/model/types/types.ts'
 
 type Props = {
-  data: any | undefined
+  data: getCreditsType | undefined
 }
 export const Actors = ({ data }: Props) => {
   return (

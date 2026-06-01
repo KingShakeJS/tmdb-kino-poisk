@@ -4,9 +4,10 @@ import {
 } from '@/features/filtered-movies/ui/filter-settings/FilterSettings.tsx'
 import { AllMoviesBlock } from '@/common/component/all-movies-block/AllMoviesBlock.tsx'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { StyledContainer } from '@/common/component/container/StyledContainer.ts'
 import { useGetDiscoverMovieQuery } from '@/features/filtered-movies/api/filteredMoviesApi.ts'
+import { debounce } from '@/common/utils/debouce.ts'
 
 export const FilteredMovies = () => {
   const [params, setParams] = useState<paramsType>({
@@ -15,11 +16,19 @@ export const FilteredMovies = () => {
     rating: [0, 10],
     checkedGenres: [],
   })
+
+  const [lazyRating, setLazyRating] = useState<number[]>([0, 10])
+
+  const debounceRating = useRef(
+    debounce((newRating: number[]) => {
+      setLazyRating(newRating)
+    }, 2000),
+  ).current
+
   const { data } = useGetDiscoverMovieQuery({
     sort_by: params.sort_by,
-    //todo debounce
-    'vote_average.gte': params.rating[0],
-    'vote_average.lte': params.rating[1],
+    'vote_average.gte': lazyRating[0],
+    'vote_average.lte': lazyRating[1],
     with_genres: params.checkedGenres.join(','),
   })
   //https://developer.themoviedb.org/reference/genre-movie-list   жанры
@@ -32,7 +41,7 @@ export const FilteredMovies = () => {
         gap: '30px',
       }}
     >
-      <FilterSettings params={params} changeParams={setParams} />
+      <FilterSettings params={params} changeParams={setParams} debounceRating={debounceRating} />
       <AllMoviesBlock data={data} />
     </StyledContainer>
   )

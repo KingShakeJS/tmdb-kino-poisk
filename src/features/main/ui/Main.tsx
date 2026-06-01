@@ -1,5 +1,3 @@
-// todo ?пепредать каждому свой isLoading
-
 import { SearchSection } from '@/features/main/ui/searchSection/SerchSection.tsx'
 import { MoviesBlock } from '@/features/main/ui/moviesBlock/MoviesBlock.tsx'
 import {

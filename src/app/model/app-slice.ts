@@ -2,8 +2,6 @@ import type { ThemeMode } from '@/common/theme/theme.ts'
 import { createAppSlice } from '@/common/utils/createAppSlice.ts'
 import { isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 
-//todo оазобраться с этой дрочкой ошибок
-
 type statusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export const appSlice = createAppSlice({
   name: 'app',
@@ -43,8 +41,6 @@ export const appSlice = createAppSlice({
         },
       ),
 
-      ///////
-
       changeCurrentPage: create.asyncThunk(
         ({ currentPage }, { rejectWithValue }) => {
           try {
@@ -61,12 +57,10 @@ export const appSlice = createAppSlice({
           },
         },
       ),
-      /////
     }
   },
 
   extraReducers: (builder) => {
-    //todo на экране не показывает лайнер прогрес но в тузу тулкиьта видно
     builder
       .addMatcher(isPending, (state) => {
         state.status = 'loading'

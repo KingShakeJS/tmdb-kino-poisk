@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const movieInfoSchema = z.strictObject({
   adult: z.boolean(),
   backdrop_path: z.string().nullable(),
-  //todo возможно вынести в одельную схему с .optional()
+  //todo??? возможно вынести в одельную схему с .optional()
   genre_ids: z.array(z.number().int()).optional(),
 
   id: z.number().int(),
