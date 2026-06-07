@@ -9,6 +9,7 @@ export const appSlice = createAppSlice({
     themeMode: 'light' as ThemeMode,
     status: 'loading' as statusType,
     currentPage: 'Main' as string,
+    searchMovieByTitle: '' as string,
     error: null as any,
   },
 
@@ -17,12 +18,16 @@ export const appSlice = createAppSlice({
     selectCurrentPage: (state) => state.currentPage,
     selectStatus: (state) => state.status,
     selectError: (state) => state.error,
+    selectSearchMovieByTitle: (state) => state.searchMovieByTitle,
   },
 
   reducers: (create) => {
     return {
       setAppError: create.reducer<{ error: string | null }>((state, action) => {
         state.error = action.payload.error
+      }),
+      setSearchMovieByTitle: create.reducer<{ title: string }>((state, action) => {
+        state.searchMovieByTitle = action.payload.title
       }),
       changeThemeMode: create.asyncThunk(
         ({ themeMode }, { rejectWithValue }) => {
@@ -75,5 +80,12 @@ export const appSlice = createAppSlice({
 })
 export const appReducer = appSlice.reducer
 
-export const { selectThemeMode, selectCurrentPage, selectStatus, selectError } = appSlice.selectors
-export const { changeThemeMode, changeCurrentPage, setAppError } = appSlice.actions
+export const {
+  selectThemeMode,
+  selectCurrentPage,
+  selectStatus,
+  selectError,
+  selectSearchMovieByTitle,
+} = appSlice.selectors
+export const { changeThemeMode, changeCurrentPage, setAppError, setSearchMovieByTitle } =
+  appSlice.actions
