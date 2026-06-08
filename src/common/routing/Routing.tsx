@@ -9,15 +9,15 @@ import { FilmPage } from '@/features/film-page/ui/FilmPage.tsx'
 
 export const Path = {
   Main: '/',
-  Favorites: 'favorites',
-  Search: 'search',
-  FilteredMovies: 'filtered-movies',
-  CategoryMovies: 'category-movies',
+  Favorites: '/favorites',
+  Search: '/search',
+  FilteredMovies: '/filtered-movies',
+  CategoryMovies: '/category-movies',
 
-  PopularMovies: 'popular-movies',
-  TopRatedMovies: 'top-rated-movies',
-  UpcomingMovies: 'upcoming-movies',
-  NawPlayingMovies: 'naw-playing-movies',
+  PopularMovies: '/popular-movies',
+  TopRatedMovies: '/top-rated-movies',
+  UpcomingMovies: '/upcoming-movies',
+  NawPlayingMovies: '/naw-playing-movies',
 
   PageNonFound: '*',
 

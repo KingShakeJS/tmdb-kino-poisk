@@ -14,6 +14,7 @@ export const StyledActorCard = styled('div')`
     margin: 0;
   }
 `
+//todo сделать заглушку для фотки актерав
 export const ActorCard = ({ actor }: Props) => {
   return (
     <StyledActorCard className={'actor-card'}>

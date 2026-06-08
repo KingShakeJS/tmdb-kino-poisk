@@ -4,6 +4,8 @@ import { type ChangeEvent, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/common/hooks'
 import { selectSearchMovieByTitle, setSearchMovieByTitle } from '@/app/model/app-slice.ts'
 
+//todo При нажатии на крестик (<input type="search">), результат должен сброситься в первоначальное состояние
+
 export const MySearch = ({ onClick }: any) => {
   const title = useAppSelector(selectSearchMovieByTitle)
   const [localSearchText, setLocalSearchText] = useState(title)

@@ -69,7 +69,10 @@ export const appSlice = createAppSlice({
         },
         {
           fulfilled: (state, action) => {
-            state.favoriteMovies.results = JSON.parse(action.payload.items)
+            const favoriteFromLocalStorage = action.payload.items
+            if (favoriteFromLocalStorage) {
+              state.favoriteMovies.results = JSON.parse(favoriteFromLocalStorage)
+            }
           },
         },
       ),

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useAppSelector } from '@/common/hooks'
 import { selectFavoriteMovies } from '@/app/model/app-slice.ts'
 //todo реализовать пагинацию, надо пересмотреть урок
-
+//todo data?.results.length >= 20 ---magicknumber
 type Props = {
   data: any
   title?: string
@@ -26,33 +26,40 @@ export const AllMoviesBlock = ({ data, title }: Props) => {
       }}
     >
       <h2>{title}</h2>
+      {data?.results.length > 0 ? (
+        <>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(5, 1fr)',
+              gap: '20px',
+              gridAutoRows: '320px',
+              paddingBottom: '20px',
+            }}
+          >
+            {data?.results.map((m: any) => (
+              <MovieCard
+                info={m}
+                key={m.id}
+                isFavorite={!!favoriteMovies.results.find((item: any) => item.id === m.id)}
+              />
+            ))}
+          </div>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
-          gap: '20px',
-          gridAutoRows: '320px',
-          paddingBottom: '20px',
-        }}
-      >
-        {data?.results.map((m: any) => (
-          <MovieCard
-            info={m}
-            key={m.id}
-            isFavorite={!!favoriteMovies.results.find((item: any) => item.id === m.id)}
-          />
-        ))}
-      </div>
-
-      <Stack spacing={2} sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-        <Pagination
-          count={pageCount}
-          page={page} // текущая страница
-          onChange={handlePageChange} // обработчик смены страницы
-          color="primary"
-        />
-      </Stack>
+          {data?.results.length >= 20 && (
+            <Stack spacing={2} sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
+              <Pagination
+                count={pageCount}
+                page={page} // текущая страница
+                onChange={handlePageChange} // обработчик смены страницы
+                color="primary"
+              />
+            </Stack>
+          )}
+        </>
+      ) : (
+        'ничего нет'
+      )}
     </div>
   )
 }

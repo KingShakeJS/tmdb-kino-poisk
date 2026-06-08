@@ -6,7 +6,6 @@ import {
   selectThemeMode,
   selectStatus,
   selectError,
-  changeCurrentPage,
   setAppError,
   getFavoriteMovies,
 } from '@/app/model/app-slice.ts'
@@ -38,9 +37,6 @@ function App() {
     if (themeMode === 'light' || themeMode === 'dark') {
       dispatch(changeThemeMode({ themeMode }))
     }
-    // if (page){
-    //   dispatch(changeCurrentPage({ currentPage: page }))
-    // }
   }, [dispatch])
   useEffect(() => {
     dispatch(getFavoriteMovies())
@@ -51,7 +47,6 @@ function App() {
       return
     }
 
-    // setOpen(false)
     dispatch(setAppError({ error: null }))
   }
 

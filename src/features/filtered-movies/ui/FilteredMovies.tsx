@@ -8,7 +8,7 @@ import { useRef, useState } from 'react'
 import { StyledContainer } from '@/common/component/container/StyledContainer.ts'
 import { useGetDiscoverMovieQuery } from '@/features/filtered-movies/api/filteredMoviesApi.ts'
 import { debounce } from '@/common/utils/debouce.ts'
-
+//todo квери параметры сохранитиь в урле
 export const FilteredMovies = () => {
   const [params, setParams] = useState<paramsType>({
     sort_by: 'popularity.desc',
@@ -31,8 +31,6 @@ export const FilteredMovies = () => {
     'vote_average.lte': lazyRating[1],
     with_genres: params.checkedGenres.join(','),
   })
-  //https://developer.themoviedb.org/reference/genre-movie-list   жанры
-  // https://developer.themoviedb.org/reference/discover-movie запрос за фильмами
   return (
     <StyledContainer
       style={{

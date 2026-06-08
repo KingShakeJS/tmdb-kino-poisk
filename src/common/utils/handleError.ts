@@ -1,4 +1,3 @@
-import { ZodError } from 'zod'
 import { isErrorWithMessage } from './isErrorWithMessage'
 import type {
   BaseQueryApi,
@@ -9,60 +8,34 @@ import type {
 import { ResultCode } from '@/common/enums/enum.ts'
 import { setAppError } from '@/app/model/app-slice.ts'
 
-const formatZodError = (z: unknown): string => {
-  const issues = Array.isArray((z as any)?.issues) ? (z as any).issues : ((z as any)?.errors ?? [])
-  const messages = (issues as any[])
-    .map((issue) => {
-      if (!issue) return ''
-      if (typeof issue === 'string') return issue
-      if (typeof issue === 'object') {
-        // Zod issue обычно { message, path, ... }
-        if ('message' in issue) {
-          const path = Array.isArray((issue as any).path)
-            ? (issue as any).path.join('.')
-            : undefined
-          return path ? `${path}: ${(issue as any).message}` : String((issue as any).message)
-        }
-        return JSON.stringify(issue)
-      }
-      return String(issue)
-    })
-    .filter(Boolean)
-  return messages.length ? messages.join('; ') : 'Validation error'
-}
-
 export const handleError = (
   api: BaseQueryApi,
   result: QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>,
 ) => {
   let error = 'Some error occurred'
 
-  // 1) Если в error.data — ZodError (реальный или сериализованный)
   if (result.error) {
-    const data = result.error.data
-    if (data instanceof ZodError || (data && Array.isArray((data as any).issues))) {
-      error = formatZodError(data)
-      api.dispatch(setAppError({ error }))
-      return
-    }
+    // const data = result.error.data
 
+    console.log(result.error)
     switch (result.error.status) {
       case 'FETCH_ERROR':
-      case 'PARSING_ERROR':
-      case 'CUSTOM_ERROR':
-        error = String(result.error.error)
+        debugger
+        error = 'сломался интерет'
+        break
+      case 401:
+        error = 'невалидный API_KEY'
         break
       case 404:
-        error = '404'
+        error = 'плохой эндпоинт'
         break
-      case 403:
-        error = '403 Forbidden Error. Check API-KEY'
-        break
+
       case 400:
         if (isErrorWithMessage(result.error.data)) {
           error = result.error.data.message
         } else {
           // если data содержит что-то читаемое — пробуем строкифицировать
+
           error =
             typeof result.error.data === 'string'
               ? result.error.data
@@ -84,16 +57,6 @@ export const handleError = (
     }
 
     api.dispatch(setAppError({ error }))
-  }
-
-  // 2) Если result.data — сериализованный ZodError (на всякий случай)
-  if (
-    result.data instanceof ZodError ||
-    (result.data && Array.isArray((result.data as any).issues))
-  ) {
-    error = formatZodError(result.data)
-    api.dispatch(setAppError({ error }))
-    return
   }
 
   // 3) Логика по resultCode из данных ответа

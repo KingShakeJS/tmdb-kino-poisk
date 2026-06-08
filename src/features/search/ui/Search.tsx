@@ -19,10 +19,11 @@ export const StyledSearchSectionSearchPage = styled('div')`
 `
 
 export const Search = () => {
-
   const searchText = useAppSelector(selectSearchMovieByTitle)
+
   const [skip, setSkip] = useState(true)
   const { data } = useGetSearchMovieQuery({ query: searchText }, { skip })
+
   useEffect(() => {
     searchText && setSkip(false)
   }, [])
@@ -35,8 +36,14 @@ export const Search = () => {
 
           {data ? (
             <>
-              <p>Results for "{searchText}"</p>
-              <AllMoviesBlock data={data} />
+              {data.results.length === 0 ? (
+                <div>No matches found for "{searchText}"</div>
+              ) : (
+                <>
+                  <p>Results for "{searchText}"</p>
+                  <AllMoviesBlock data={data} />
+                </>
+              )}
             </>
           ) : (
             <p>Enter a movie title to start searching.</p>
