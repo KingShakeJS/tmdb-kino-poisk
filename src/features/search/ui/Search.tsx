@@ -19,7 +19,7 @@ export const StyledSearchSectionSearchPage = styled('div')`
 `
 
 export const Search = () => {
-  //todo заглушка
+
   const searchText = useAppSelector(selectSearchMovieByTitle)
   const [skip, setSkip] = useState(true)
   const { data } = useGetSearchMovieQuery({ query: searchText }, { skip })

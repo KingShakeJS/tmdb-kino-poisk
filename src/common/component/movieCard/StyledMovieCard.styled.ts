@@ -1,78 +1,70 @@
 import { Card, styled } from '@mui/material'
 
-export const StyledMovieCard = styled(Card)`
-  flex: 1;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  background: ${({ theme }) => theme.palette.background.paper};
+// Обратите внимание, что нужно указывать `shouldForwardProp`, чтобы пропс не передавался в DOM
+export const StyledMovieCard = styled(Card, {
+  shouldForwardProp: (prop) => prop !== 'isFavorite',
+})(({ theme, isFavorite }) => ({
+  flex: 1,
+  borderRadius: 20,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  position: 'relative',
+  background: theme.palette.background.paper,
 
-  /* Вспомогательный контейнер для позиции кнопки */
-  & .img-btn-rating {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  '& .img-btn-rating': {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 
-  & .rating {
-    position: absolute;
-    bottom: -10%;
-    right: 0;
-  }
+  '& .rating': {
+    position: 'absolute',
+    bottom: '-10%',
+    right: 0,
+  },
 
-  .movie-img {
-    transition: transform 0.3s;
-    display: block;
-    margin: 0 auto;
-    max-width: 150px;
-    border-radius: 20px;
-  }
+  '.movie-img': {
+    transition: 'transform 0.3s',
+    display: 'block',
+    margin: '0 auto',
+    maxWidth: 150,
+    borderRadius: 20,
+  },
 
-  /* Увеличиваем постер при наведении на всю карточку */
-  &:hover .movie-img {
-    transform: scale(1.1);
-  }
+  '&:hover .movie-img': {
+    transform: 'scale(1.1)',
+  },
 
-  /* Кнопка лайка — скрыта, пока нет ховера карточки */
-  .MuiButton-root {
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: ${({ theme }) => theme.palette.grey[300]};
-    right: 20px;
-    top: 10px;
-    width: 60px;
-    height: 60px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 2;
-  }
+  '& .MuiButton-root': {
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.palette.grey[300],
+    right: 20,
+    top: 10,
+    width: 60,
+    height: 60,
+    opacity: isFavorite ? 1 : 0, // Всегда показывать, если favorite
+    pointerEvents: isFavorite ? 'auto' : 'none', // Иначе отключено
+    transition: 'opacity 0.5s',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    zIndex: 2,
+  },
 
-  /* При наведении на всю карточку показываем кнопку! */
-  &:hover .MuiButton-root {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-
-  /* Стили для иконки */
-  .MuiButton-root .MuiSvgIcon-root {
-    font-size: 2rem;
-    transition: color 0.3s;
-    color: ${({ theme }) => theme.palette.common.black};
-  }
-
-  /* При наведении — иконка красная */
-  .MuiButton-root:hover .MuiSvgIcon-root {
-    color: ${({ theme }) => theme.palette.error.main};
-  }
-`
+  // Для не в избранном, показывать кнопку только при ховере
+  ...(isFavorite
+    ? {}
+    : {
+        '&:hover .MuiButton-root': {
+          opacity: 1,
+          pointerEvents: 'auto',
+        },
+      }),
+}))

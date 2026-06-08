@@ -8,24 +8,28 @@ import Zaglusha from '/forFilmCard.png'
 import { Rating } from '@/common/component'
 import { StyledMovieCard } from '@/common/component/movieCard/StyledMovieCard.styled.ts'
 import type { movieInfo } from '@/features/main/model/types/types.ts'
-//todo любимые должны бвыть подсвеченны сразву
+import { changeMovieToFavorites, selectFavoriteMovies } from '@/app/model/app-slice.ts'
+
+import { useAppDispatch } from '@/common/hooks'
 
 type Props = {
   info: movieInfo | undefined
+  isFavorite: boolean
 }
-export const MovieCard = ({ info }: Props) => {
-  const changeFavoriteHandler = (e: MouseEvent<HTMLButtonElement>, id: number) => {
+export const MovieCard = ({ info, isFavorite }: Props) => {
+  const dispatch = useAppDispatch()
+  // const favoriteMovies = useAppSelector(selectFavoriteMovies)
+
+  const changeFavoriteHandler = (e: MouseEvent<HTMLButtonElement>, info: movieInfo) => {
     e.preventDefault()
     e.stopPropagation()
-
-    console.log('click on favorite movie', id)
-    // todo Здесь разместите обработку "лайка"
+    dispatch(changeMovieToFavorites({ movie: info }))
   }
 
   const src = info?.poster_path ? `${BASE_IMG_URL}${info?.poster_path}` : Zaglusha
 
   return (
-    <StyledMovieCard>
+    <StyledMovieCard isFavorite={isFavorite}>
       <Link
         component={RouterLink}
         to={`${Path.Movie.replace(':id', String(info!.id))}`}
@@ -46,10 +50,10 @@ export const MovieCard = ({ info }: Props) => {
           <div className={'img-btn-rating'}>
             <Button
               onClick={(e) => {
-                changeFavoriteHandler(e, info!.id)
+                changeFavoriteHandler(e, info)
               }}
             >
-              <FavoriteIcon />
+              <FavoriteIcon htmlColor={isFavorite ? 'red' : 'blue'} />
             </Button>
             <img
               className="movie-img"

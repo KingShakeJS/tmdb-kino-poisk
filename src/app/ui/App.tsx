@@ -8,6 +8,7 @@ import {
   selectError,
   changeCurrentPage,
   setAppError,
+  getFavoriteMovies,
 } from '@/app/model/app-slice.ts'
 import { Content, Header } from '@/common/component'
 import { useEffect } from 'react'
@@ -41,6 +42,9 @@ function App() {
     //   dispatch(changeCurrentPage({ currentPage: page }))
     // }
   }, [dispatch])
+  useEffect(() => {
+    dispatch(getFavoriteMovies())
+  }, [])
 
   const handleClose = (event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
     if (reason === 'clickaway') {

@@ -1,6 +1,8 @@
 import { MovieCard } from '@/common/component/movieCard/MovieCard.tsx'
 import { Pagination, Stack } from '@mui/material'
 import { useState } from 'react'
+import { useAppSelector } from '@/common/hooks'
+import { selectFavoriteMovies } from '@/app/model/app-slice.ts'
 //todo реализовать пагинацию, надо пересмотреть урок
 
 type Props = {
@@ -8,11 +10,13 @@ type Props = {
   title?: string
 }
 export const AllMoviesBlock = ({ data, title }: Props) => {
+  const favoriteMovies = useAppSelector(selectFavoriteMovies)
+
   const pageCount = data?.total_pages
   const [page, setPage] = useState(1)
   const handlePageChange = (_even: any, value: number) => {
     setPage(value)
-    // Здесь можно добавить подгрузку данных по странице
+    // todo Здесь можно добавить подгрузку данных по странице
     // например: refetch({ page: value });
   }
   return (
@@ -33,7 +37,11 @@ export const AllMoviesBlock = ({ data, title }: Props) => {
         }}
       >
         {data?.results.map((m: any) => (
-          <MovieCard info={m} key={m.id} />
+          <MovieCard
+            info={m}
+            key={m.id}
+            isFavorite={!!favoriteMovies.results.find((item: any) => item.id === m.id)}
+          />
         ))}
       </div>
 
