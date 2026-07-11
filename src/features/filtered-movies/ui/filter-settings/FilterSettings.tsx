@@ -21,9 +21,10 @@ type Props = {
   params: paramsType
   changeParams: (params: paramsType) => void
   debounceRating: (...args: any[]) => void
+  setFirstPage: () => void
 }
 
-export const FilterSettings = ({ params, changeParams, debounceRating }: Props) => {
+export const FilterSettings = ({ params, changeParams, debounceRating, setFirstPage }: Props) => {
   const { data } = useGetGenresMovieListQuery()
 
   const sortBy = {
@@ -52,15 +53,19 @@ export const FilterSettings = ({ params, changeParams, debounceRating }: Props) 
     }
 
     changeParams({ ...params, checkedGenres: [...copyCheckedGenres] })
+    setFirstPage()
   }
 
   const changeSelectHandler = (event: SelectChangeEvent) => {
     changeParams({ ...params, sort_by: event.target.value })
+    setFirstPage()
+
   }
 
   const changeRatingHandler = (_event: Event, newValue: number[]) => {
     changeParams({ ...params, rating: newValue })
     debounceRating(newValue)
+    setFirstPage()
   }
   function valuetext(value: number) {
     return `${value}`

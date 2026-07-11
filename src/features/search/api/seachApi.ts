@@ -4,11 +4,10 @@ import { zodValidate } from '@/common/utils/zodValidate.ts'
 import { getBaseResponseSchema } from '@/common/schemas/schemas.ts'
 const searchApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getSearchMovie: build.query<getBaseResponseType, { query: string }>({
-      query: (params) => ({
-        url: 'search/movie',
-        params,
-      }),
+    getSearchMovie: build.query<getBaseResponseType, { params: { query: string; page: number } }>({
+      query: ({ params }) => {
+        return { url: 'search/movie', params }
+      },
       onQueryStarted(_, { dispatch, queryFulfilled }) {
         zodValidate(dispatch, queryFulfilled, getBaseResponseSchema)
       },

@@ -10,6 +10,8 @@ import { useGetDiscoverMovieQuery } from '@/features/filtered-movies/api/filtere
 import { debounce } from '@/common/utils/debouce.ts'
 //todo квери параметры сохранитиь в урле
 export const FilteredMovies = () => {
+  const [page, setPage] = useState(1)
+
   const [params, setParams] = useState<paramsType>({
     sort_by: 'popularity.desc',
     //vote_average.gte >=a  vote_average.lte <=b
@@ -30,6 +32,7 @@ export const FilteredMovies = () => {
     'vote_average.gte': lazyRating[0],
     'vote_average.lte': lazyRating[1],
     with_genres: params.checkedGenres.join(','),
+    page
   })
   return (
     <StyledContainer
@@ -39,8 +42,13 @@ export const FilteredMovies = () => {
         gap: '30px',
       }}
     >
-      <FilterSettings params={params} changeParams={setParams} debounceRating={debounceRating} />
-      <AllMoviesBlock data={data} />
+      <FilterSettings
+        params={params}
+        changeParams={setParams}
+        debounceRating={debounceRating}
+        setFirstPage={() => setPage(1)}
+      />
+      <AllMoviesBlock data={data} page={page} setPage={setPage} />
     </StyledContainer>
   )
 }
