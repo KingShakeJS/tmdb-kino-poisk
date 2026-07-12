@@ -10,7 +10,7 @@ export const zodValidate = async (dispatch: Dispatch, queryFulfilled: any, schem
 
       dispatch(setAppError({ error: 'ZOD ERROR смотри в консоль' }))
     } else {
-      dispatch(setAppError(null))
+      dispatch(setAppError({ error: null }))
     }
   } catch (err) {
     return

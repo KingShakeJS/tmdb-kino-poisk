@@ -1,9 +1,13 @@
 import { Card, styled } from '@mui/material'
+import type { CardProps } from '@mui/material'
 
+type StyledMovieCardProps = CardProps & {
+  isFavorite?: boolean
+}
 // Обратите внимание, что нужно указывать `shouldForwardProp`, чтобы пропс не передавался в DOM
 export const StyledMovieCard = styled(Card, {
   shouldForwardProp: (prop) => prop !== 'isFavorite',
-})(({ theme, isFavorite }) => ({
+})<StyledMovieCardProps>(({ theme, isFavorite }) => ({
   flex: 1,
   borderRadius: 20,
   display: 'flex',
@@ -45,8 +49,8 @@ export const StyledMovieCard = styled(Card, {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.palette.grey[300],
-    right: 20,
-    top: 10,
+    // right: 20,
+    // top: 10,
     width: 60,
     height: 60,
     opacity: isFavorite ? 1 : 0, // Всегда показывать, если favorite

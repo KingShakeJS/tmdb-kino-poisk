@@ -38,7 +38,7 @@ export const FilterSettings = ({ params, changeParams, debounceRating, setFirstP
     'title.desc': 'Title Z-A',
   } as const
 
-  const changeCheckedGenresHandler = (genre: string) => {
+  const changeCheckedGenresHandler = (genre: number) => {
     const copyCheckedGenres = [...params.checkedGenres]
 
     const exists = copyCheckedGenres.some((g) => g === genre)
@@ -59,7 +59,6 @@ export const FilterSettings = ({ params, changeParams, debounceRating, setFirstP
   const changeSelectHandler = (event: SelectChangeEvent) => {
     changeParams({ ...params, sort_by: event.target.value })
     setFirstPage()
-
   }
 
   const changeRatingHandler = (_event: Event, newValue: number[]) => {
@@ -94,8 +93,8 @@ export const FilterSettings = ({ params, changeParams, debounceRating, setFirstP
               onChange={changeSelectHandler}
               sx={{ width: 200 }}
             >
-              {Object.keys(sortBy).map((item, index) => (
-                <MenuItem key={index} value={item}>
+              {(Object.keys(sortBy) as Array<keyof typeof sortBy>).map((item) => (
+                <MenuItem key={item} value={item}>
                   {sortBy[item]}
                 </MenuItem>
               ))}

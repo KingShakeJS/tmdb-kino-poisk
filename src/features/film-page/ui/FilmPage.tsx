@@ -12,9 +12,18 @@ import { StyledContainer } from '@/common/component/container/StyledContainer.ts
 
 export const FilmPage = () => {
   const { id } = useParams()
-  const { data: detailData, isLoading: detailIsLoading } = useGetDetailsQuery({ movie_id: id })
-  const { data: similarData, isLoading: similarIsLoading } = useGetSimilarQuery({ movie_id: id })
-  const { data: creditsData, isLoading: creditsIsLoading } = useGetCreditsQuery({ movie_id: id })
+  const { data: detailData, isLoading: detailIsLoading } = useGetDetailsQuery(
+    { movie_id: id as string },
+    { skip: !id },
+  )
+  const { data: similarData, isLoading: similarIsLoading } = useGetSimilarQuery(
+    { movie_id: id as string },
+    { skip: !id },
+  )
+  const { data: creditsData, isLoading: creditsIsLoading } = useGetCreditsQuery(
+    { movie_id: id as string },
+    { skip: !id },
+  )
 
   if (detailIsLoading && similarIsLoading && creditsIsLoading) {
     return <BigLoader />

@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider } from '@mui/material'
+import { CssBaseline, type SnackbarCloseReason, ThemeProvider } from '@mui/material'
 import { getTheme } from '@/common/theme/theme.ts'
 import { useAppDispatch, useAppSelector } from '@/common/hooks'
 import {
@@ -42,7 +42,7 @@ function App() {
     dispatch(getFavoriteMovies())
   }, [])
 
-  const handleClose = (event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
+  const handleClose = (_event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
     if (reason === 'clickaway') {
       return
     }

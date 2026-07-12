@@ -3,10 +3,6 @@ import { useGetNowPlayingQuery } from '@/features/main/api/mainApi.ts'
 import { useState } from 'react'
 
 export const NawPlayingMovies = () => {
-
-
-
-
   const [page, setPage] = useState(1)
 
   const { data } = useGetNowPlayingQuery({

@@ -1,5 +1,4 @@
 import { Button, styled } from '@mui/material'
-import type { getPopularRequestType } from '@/features/main/api/mainApi.ts'
 
 import { Link } from 'react-router'
 import { MovieCardSkeleton } from '@/common/component/movieCard/MovieCardSkeleton.tsx'
@@ -7,6 +6,7 @@ import { MovieCard } from '@/common/component/movieCard/MovieCard.tsx'
 import { Path } from '@/common/routing'
 import { useAppDispatch, useAppSelector } from '@/common/hooks'
 import { changeCurrentPage, selectFavoriteMovies } from '@/app/model/app-slice.ts'
+import type { getBaseResponseType } from '@/common/types/types.ts'
 
 //todo??? то что в StyledMoviesBlock вынести в отдельный компонент, делать запросы в нем
 const StyledMoviesBlock = styled('div')({
@@ -16,7 +16,7 @@ const StyledMoviesBlock = styled('div')({
 
 type Props = {
   title: string
-  data: getPopularRequestType | undefined
+  data: getBaseResponseType | undefined
   isLoading: boolean
   category: string
 }
@@ -25,8 +25,9 @@ export const ViewMoreBtn = ({ category }: { category: string }) => {
   const dispatch = useAppDispatch()
 
   const goToCategories = () => {
-    dispatch(changeCurrentPage({ currentPage: 'CategoryMovies' }))
+    dispatch(changeCurrentPage({ currentPage: category }))
   }
+
   return (
     <Link to={`${Path.CategoryMovies}/${category}`}>
       <Button variant="outlined" onClick={goToCategories}>
@@ -51,7 +52,7 @@ export const MoviesBlock = ({ title, data, isLoading, category }: Props) => {
               .map((_, i) => <MovieCardSkeleton key={i} />)
           : data?.results
               .slice(0, 6)
-              .map((info) => (
+              .map((info: any) => (
                 <MovieCard
                   isFavorite={!!favoriteMovies.results.find((item: any) => item.id === info.id)}
                   key={info.id}

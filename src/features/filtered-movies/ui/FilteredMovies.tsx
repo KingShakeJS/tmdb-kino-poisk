@@ -32,7 +32,7 @@ export const FilteredMovies = () => {
     'vote_average.gte': lazyRating[0],
     'vote_average.lte': lazyRating[1],
     with_genres: params.checkedGenres.join(','),
-    page
+    page,
   })
   return (
     <StyledContainer

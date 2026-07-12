@@ -7,7 +7,7 @@ export const PopularMovies = () => {
   const [page, setPage] = useState(1)
 
   const { data } = useGetPopularQuery({
-    params:{page}
+    params: { page },
   })
   return <AllMoviesBlock data={data} title="Popular Movies" page={page} setPage={setPage} />
 }

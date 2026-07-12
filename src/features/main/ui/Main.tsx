@@ -11,7 +11,7 @@ import { StyledContainer } from '@/common/component/container/StyledContainer.ts
 
 export const Main = () => {
   const { data: PopularData, isLoading: PopularIsLoading } = useGetPopularQuery({
-    params: { page:1 }
+    params: { page: 1 },
   })
   const { data: TopRatedData, isLoading: TopRatedIsLoading } = useGetTopRatedQuery({
     params: { page: 1 },

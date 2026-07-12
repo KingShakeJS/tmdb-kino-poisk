@@ -7,17 +7,16 @@ import { selectFavoriteMovies } from '@/app/model/app-slice.ts'
 type Props = {
   data: any
   title?: string
-  page: number
-  setPage: (page: number) => void
+  page?: number
+  setPage?: (page: number) => void
 }
-export const AllMoviesBlock = ({ data, title, page,setPage }: Props) => {
+export const AllMoviesBlock = ({ data, title, page, setPage }: Props) => {
   const favoriteMovies = useAppSelector(selectFavoriteMovies)
 
   const pageCount = data?.total_pages
 
-
-  const handlePageChange = (_even: any, value: number) => {
-    setPage(value)
+  const handlePageChange = (_event: any, value: number) => {
+    setPage?.(value)
   }
   return (
     <div
@@ -48,16 +47,12 @@ export const AllMoviesBlock = ({ data, title, page,setPage }: Props) => {
 
           {data?.results.length >= 20 && (
             <Stack spacing={2} sx={{ width: '100%', display: 'flex', alignItems: 'center' }}>
-
-
               <Pagination
                 count={pageCount}
                 page={page} // текущая страница
                 onChange={handlePageChange} // обработчик смены страницы
                 color="primary"
               />
-
-
             </Stack>
           )}
         </>

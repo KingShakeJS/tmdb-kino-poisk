@@ -20,7 +20,6 @@ export const handleError = (
     console.log(result.error)
     switch (result.error.status) {
       case 'FETCH_ERROR':
-        debugger
         error = 'сломался интерет'
         break
       case 401:
